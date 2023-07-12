@@ -1,2 +1,3 @@
 #!/bin/bash
-echo $((16#$DECIMAL))
+printf '%x\n' $DECIMAL
+
