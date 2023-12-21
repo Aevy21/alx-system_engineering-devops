@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Bash script to display content of the current directory in a list format
+
+# Loop through files in the current directory
+for file in *; do
+    # Extract the part of the name after the first dash
+    name_part=$(echo "$file" | cut -d'-' -f2-)
+    
+    # Display in list format
+    echo "$name_part"
+done
