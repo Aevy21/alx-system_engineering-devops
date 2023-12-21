@@ -6,9 +6,9 @@ counter=1
 while [ $counter -le 10 ]; do
     # Check conditions for different iterations
     if [ $counter -eq 4 ]; then
-        echo "Bad luck"
+        echo "bad luck"
     elif [ $counter -eq 8 ]; then
-        echo "Good luck"
+        echo "good luck"
     else
         echo "Best School"
     fi
