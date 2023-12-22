@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Infinite Loop Script with Signal Handling
+# Displays "To infinity and beyond" indefinitely with a sleep of 2 seconds.
+# Prints "I am invincible!!!" when receiving a SIGTERM signal.
+
+# Function to be executed on SIGTERM
+invincible() {
+    echo "I am invincible!!!"
+    exit 0
+}
+
+# Set up trap for SIGTERM to call the invincible function
+trap invincible SIGTERM
+
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
+
