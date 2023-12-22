@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Find the process ID (PID) of the 4-to_infinity_and_beyond script
+# Check if the process is running
+# Use kill to send a termination signal to the process
+
+kill "$(pgrep -f 4-to_infinity_and_beyond)"
