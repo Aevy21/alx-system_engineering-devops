@@ -4,9 +4,9 @@
 # Prints "I am invincible!!!" when receiving a SIGTERM signal.
 
 # Function to be executed on SIGTERM
-invincible() {
+invincible() 
+{
     echo "I am invincible!!!"
-    exit 0
 }
 
 # Set up trap for SIGTERM to call the invincible function
