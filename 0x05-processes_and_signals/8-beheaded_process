@@ -2,6 +2,4 @@
 # Kill Process Script
 # Kills the process named "7-highlander" using kill.
 
-# Get the PID of the process using pgrep
-# shellcheck disable=SC2009
-kill "$(pgrep -f "7-highlander")"
+pkill -f -SIGKILL 7-highlander
