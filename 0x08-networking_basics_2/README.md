@@ -1,4 +1,3 @@
-Certainly! Let's expand on these concepts and create a README file.
 
 ```markdown
 # Networking Basics README
