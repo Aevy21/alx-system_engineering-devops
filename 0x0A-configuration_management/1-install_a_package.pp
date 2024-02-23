@@ -11,10 +11,3 @@ package { 'flask':
   provider => 'pip',
   require  => Package['python3.8'],
 }
-
-# Install Werkzeug 2.1.1
-package { 'Werkzeug':
-  ensure   => '2.1.1',
-  provider => 'pip',
-  require  => Package['python3.8'],
-}
