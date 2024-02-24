@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Create or append to the SSH client configuration file
+cat <<EOF >> ~/.ssh/config
+Host 34.224.95.155
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
+EOF
+
