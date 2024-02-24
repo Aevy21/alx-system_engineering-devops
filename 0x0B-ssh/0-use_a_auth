@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Copy the public key to the server
+cat ~/.ssh/school.pub | ssh ubuntu@34.224.95.155 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
+
+# Set permissions on the server
+ssh ubuntu@34.224.95.155 'chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys'
