@@ -2,7 +2,7 @@
 
 # Create or append to the SSH client configuration file
 cat <<EOF >> ~/.ssh/config
-Host 54.173.115.239
+Host 54.165.47.248
     IdentityFile ~/.ssh/school
     PasswordAuthentication no
 EOF
