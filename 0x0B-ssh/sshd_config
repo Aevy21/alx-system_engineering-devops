@@ -1,0 +1,2 @@
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
