@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Configures Nginx server for redirection
+
+# Update package lists
+sudo apt-get -y update
+
+# Install nginx
+sudo apt-get -y install nginx
+
+# Create a backup of the default configuration file
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
+
+# Replace the line with multiple lines using sed
+sudo sed -i '/^}/i \
+    location /redirect_me { \
+        return 301 https://example.com/placeholder_url; \
+    }' /etc/nginx/sites-available/default
+
+sudo service nginx start
