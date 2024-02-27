@@ -1,33 +1,14 @@
 #!/usr/bin/env bash
-# Install nginx on web-01 server
-# Nginx to listen on port 80
+# Installs and configures nginx
 
-# Variables
-nginx_web_root="/var/www/html"
-custom_page_path="$nginx_web_root/index.html"
-nginx_service="nginx"
-hello_message="Hello World!"
-
-# Update package list and install Nginx
+# Update package lists
 sudo apt-get -y update
-sudo apt-get -y install $nginx_service
 
-# Create a custom HTML page with the string "Hello World!"
-echo "$hello_message" | sudo tee $custom_page_path >/dev/null
+# Install nginx
+sudo apt-get -y install nginx
 
-# Modify Nginx configuration to serve the custom HTML file
-sudo tee /etc/nginx/sites-available/default >/dev/null <<CONFIG
-server {
-    listen 80;
-    server_name _;
+# Create index file with "Hello World!" content
+echo "Hello World!" | sudo tee "/var/www/html/index.nginx-debian.html"
 
-    location / {
-        root $nginx_web_root;
-        index index.html;
-    }
-}
-CONFIG
-
-# Restart Nginx service
-sudo service $nginx_service restart
-
+# Start nginx service
+sudo service nginx start
