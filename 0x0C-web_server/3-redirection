@@ -7,6 +7,9 @@ sudo apt-get -y update
 # Install nginx
 sudo apt-get -y install nginx
 
+# # Allow HTTP traffic through the firewall for Nginx
+sudo ufw allow 'Nginx HTTP'
+
 # Create a backup of the default configuration file
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
