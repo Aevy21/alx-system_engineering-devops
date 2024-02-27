@@ -11,9 +11,8 @@ sudo apt-get -y install nginx
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
 # Replace the line with multiple lines using sed
-sudo sed -i "/^}/i \
-    location /redirect_me { \
-        return 301 https:\/\/google.com\/; \
-    }" /etc/nginx/sites-available/default
+new_string="server_name _;\n\n\trewrite ^\/redirect_me https:\/\/github.com permanent;"
+
+sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-available/default
 
 sudo service nginx start
