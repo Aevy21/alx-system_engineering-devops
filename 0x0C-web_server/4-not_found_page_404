@@ -32,7 +32,7 @@ server {
     location = /404.html {
         internal;
         root /var/www/html;
-        echo "Ceci n'est pas une page";
+        echo "<h1>404 Not Found</h1><p>Ceci n'est pas une page</p>";
     }
 }
 EOF
