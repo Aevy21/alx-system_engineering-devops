@@ -40,12 +40,6 @@ EOF
 # Enable the custom 404 page configuration
 sudo ln -s /etc/nginx/sites-available/custom_404 /etc/nginx/sites-enabled/
 
-# Test Nginx configuration
-sudo nginx -t
-
-# Reload Nginx to apply changes
-sudo service nginx reload
-
 # Start Nginx service if not already started
 sudo service nginx start
 
