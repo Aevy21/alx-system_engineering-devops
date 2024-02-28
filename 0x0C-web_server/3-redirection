@@ -10,7 +10,7 @@ sudo apt-get -y install nginx
 # Create a backup of the default configuration file
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
-echo "Hello World!" | sudo tee "/var/www/html/index.nginx-debian.html'
+echo "Hello World!" | sudo tee "/var/www/html/index.nginx-debian.html"
 
 # Restore default configuration for a permanent 301 redirect
 sudo sed -i '/server_name _;/a\    location = \/redirect_me {\n        return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;\n    }' /etc/nginx/sites-available/default
