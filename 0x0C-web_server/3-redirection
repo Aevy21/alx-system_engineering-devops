@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configures Nginx server for redirection
+# Configures Nginx server for redirection and default error pages
 
 # Update package lists
 sudo apt-get -y update
@@ -10,9 +10,11 @@ sudo apt-get -y install nginx
 # Create a backup of the default configuration file
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
+# Add "Hello World" message
+sudo bash -c 'echo "Hello World" > /var/www/html/index.html'
 
-# Replace the line with multiple lines using sed
-sed -i 's/server_name _;/server_name _;\n\trewrite \/redirect_me https:\/\/www.youtube.com\/watch\?v=QH2-TGUlwu4 permanent;/' /etc/nginx/sites-enabled/default
+# Restore default configuration for a permanent 301 redirect
+sudo sed -i '/server_name _;/a\    location = \/redirect_me {\n        return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;\n    }' /etc/nginx/sites-available/default
 
-sudo service nginx start
+# Restart Nginx service to apply changes
+sudo service nginx restart
