@@ -17,6 +17,8 @@ sudo bash -c 'echo "Hello World" > /var/www/html/index.html'
 # Restore default configuration for a 301 redirect
 sudo sed -i '/server_name _;/a\    location = \/redirect_me {\n        return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;\n    }' /etc/nginx/sites-available/default
 
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html > /dev/null
+
 # Restore default error page configurations
 sudo sed -i '/error_page 404/c\    error_page 404 /404.html;' /etc/nginx/sites-available/default
 sudo sed -i '/location \= \/404.html/c\    location = \/404.html {\n        root \/usr\/share\/nginx\/html;\n        internal;\n    }' /etc/nginx/sites-available/default
