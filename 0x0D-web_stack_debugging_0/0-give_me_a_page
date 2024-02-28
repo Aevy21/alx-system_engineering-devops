@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Fix Apache to return "Hello Holberton" page
+apt-get update
+apt-get install -y apache2
+echo "Hello Holberton" > /var/www/html/index.html
