@@ -20,6 +20,18 @@ sudo sed -i '/server_name _;/a\    location = \/redirect_me {\n        return 30
 # Restore default error page configurations
 sudo sed -i '/error_page 404/c\    error_page 404 /404.html;' /etc/nginx/sites-available/default
 sudo sed -i '/location \= \/404.html/c\    location = \/404.html {\n        root \/usr\/share\/nginx\/html;\n        internal;\n    }' /etc/nginx/sites-available/default
+# Define named locations for handling the errors
+
+sudo bash -c 'cat >> /etc/nginx/sites-available/default' << EOF
+
+    location @redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    location @not_found {
+        return 404;
+    }
+EOF
 
 # Restart Nginx service to apply changes
 sudo service nginx restart
