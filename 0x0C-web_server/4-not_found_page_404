@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configures Nginx server for redirection and custom 404 page
+# Configures Nginx server for redirection and default error pages
 
 # Update package lists
 sudo apt-get -y update
@@ -10,36 +10,12 @@ sudo apt-get -y install nginx
 # Create a backup of the default configuration file
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
-# Add redirection rule to the Nginx configuration
-sudo sed -i 's/server_name _;/&\n\trewrite \/redirect_me https:\/\/www.youtube.com\/watch\?v=QH2-TGUlwu4 permanent;/' /etc/nginx/sites-available/default
+# Restore default configuration for a 301 redirect
+sudo sed -i '/server_name _;/a\    location = \/redirect_me {\n        return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;\n    }' /etc/nginx/sites-available/default
 
-# Add custom 404 page configuration to Nginx
-sudo bash -c 'cat > /etc/nginx/sites-available/custom_404' << EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+# Restore default error page configurations
+sudo sed -i '/error_page 404/c\    error_page 404 /404.html;' /etc/nginx/sites-available/default
+sudo sed -i '/location \= \/404.html/c\    location = \/404.html {\n        root \/usr\/share\/nginx\/html;\n        internal;\n    }' /etc/nginx/sites-available/default
 
-    root /var/www/html;
-    index index.html;
-
-    server_name _;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    error_page 404 /404.html;
-    location = /404.html {
-        internal;
-        root /var/www/html;
-        echo "Ceci n'est pas une page";
-    }
-}
-EOF
-
-# Enable the custom 404 page configuration
-sudo ln -s /etc/nginx/sites-available/custom_404 /etc/nginx/sites-enabled/
-
-# Start Nginx service if not already started
-sudo service nginx start
-
+# Restart Nginx service to apply changes
+sudo service nginx restart
