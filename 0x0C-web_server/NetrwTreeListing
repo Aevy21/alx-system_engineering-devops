@@ -1,0 +1,206 @@
+" ============================================================================
+" Netrw Directory Listing                                        (netrw v165)
+"   /
+"   Sorted by      name
+"   Sort sequence: [\/]$,\<core\%(\.\d\+\)\=\>,\.h$,\.c$,\.cpp$,\~\=\*$,*,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$
+"   Quick Help: <F1>:help  -:go up dir  D:delete  R:rename  s:sort-by  x:special
+" ==============================================================================
+../
+/
+| AirBnB_clone_v2/
+| AirBnB_clone_v3/
+| AirBnB_clone_v4/
+| add_clone/
+| alx-higher_level_programming/
+| alx-system_engineering-devops/
+| boot/
+| dev/
+| etc/
+| | ImageMagick-6/
+| | PackageKit/
+| | X11/
+| | alternatives/
+| | apache2/
+| | apparmor.d/
+| | apt/
+| | bash_completion.d/
+| | binfmt.d/
+| | ca-certificates/
+| | calendar/
+| | cron.d/
+| | cron.daily/
+| | cron.weekly/
+| | dbus-1/
+| | dconf/
+| | default/
+| | dhcp/
+| | dpkg/
+| | emacs/
+| | environment.d/
+| | fonts/
+| | gdb/
+| | ghostscript/
+| | groff/
+| | gss/
+| | gtk-3.0/
+| | init.d/
+| | init/
+| | iproute2/
+| | kernel/
+| | ld.so.conf.d/
+| | ldap/
+| | libpaper.d/
+| | lighttpd/
+| | logcheck/
+| | logrotate.d/
+| | modules-load.d/
+| | mysql/
+| | networkd-dispatcher/
+| | nginx/
+| | | conf.d/
+| | | modules-available/
+| | | modules-enabled/
+| | | sites-available/
+| | | | default
+| | | | .default.swp
+| | | sites-enabled/
+| | | snippets/
+| | | fastcgi.conf
+| | | fastcgi_params
+| | | koi-utf
+| | | koi-win
+| | | mime.types
+| | | nginx.conf
+| | | proxy_params
+| | | scgi_params
+| | | uwsgi_params
+| | | win-utf
+| | opt/
+| | pam.d/
+| | perl/
+| | pm/
+| | polkit-1/
+| | profile.d/
+| | puppet/
+| | python3.8/
+| | python3/
+| | rc0.d/
+| | rc1.d/
+| | rc2.d/
+| | rc3.d/
+| | rc4.d/
+| | rc5.d/
+| | rc6.d/
+| | rcS.d/
+| | rsyslog.d/
+| | security/
+| | selinux/
+| | sensors.d/
+| | skel/
+| | ssh/
+| | ssl/
+| | sudoers.d/
+| | sysctl.d/
+| | systemd/
+| | terminfo/
+| | tmpfiles.d/
+| | ufw/
+| | update-motd.d/
+| | vim/
+| | vulkan/
+| | xdg/
+| | sandbox_run.sh*
+| | .pwd.lock
+| | adduser.conf
+| | bash.bashrc
+| | bindresvport.blacklist
+| | ca-certificates.conf
+| | ca-certificates.conf.dpkg-old
+| | debconf.conf
+| | debian_version
+| | deluser.conf
+| | e2scrub.conf
+| | environment
+| | ethertypes
+| | fstab
+| | gai.conf
+| | group
+| | group-
+| | gshadow
+| | gshadow-
+| | host.conf
+| | hostname
+| | hosts
+| | hosts.allow
+| | hosts.deny
+| | inputrc
+| | issue
+| | issue.net
+| | ld.so.cache
+| | ld.so.conf
+| | legal
+| | libaudit.conf
+| | locale.alias
+| | locale.gen
+| | localtime@	 --> localtime
+| | login.defs
+| | lsb-release
+| | ltrace.conf
+| | machine-id
+| | magic
+| | magic.mime
+| | mailcap
+| | mailcap.order
+| | manpath.config
+| | mecabrc
+| | mime.types
+| | mke2fs.conf
+| | mtab@	 --> mtab
+| | networks
+| | nsswitch.conf
+| | os-release@	 --> os-release
+| | pam.conf
+| | papersize
+| | passwd
+| | passwd-
+| | profile
+| | protocols
+| | resolv.conf
+| | rmt@	 --> rmt
+| | rpc
+| | rvmrc
+| | sensors3.conf
+| | services
+| | shadow
+| | shadow-
+| | shells
+| | subgid
+| | subuid
+| | sudoers
+| | sysctl.conf
+| | timezone
+| | ucf.conf
+| | wgetrc
+| | xattr.conf
+| | zprofile
+| home/
+| media/
+| mnt/
+| opt/
+| proc/
+| root/
+| run/
+| srv/
+| sys/
+| tmp/
+| usr/
+| var/
+| .dockerenv*
+| login.sh*
+| bin@	 --> usr/bin
+| lib32@	 --> usr/lib32
+| lib64@	 --> usr/lib64
+| lib@	 --> usr/lib
+| libx32@	 --> usr/libx32
+| sbin@	 --> usr/sbin
+| sudo
