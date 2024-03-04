@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Check if NGINX is installed, install if not
+if ! command -v nginx &> /dev/null; then
+    echo "NGINX is not installed. Installing..."
+    sudo apt update
+    sudo apt install -y nginx
+fi
+
+# Install HAProxy if not installed
+if ! command -v haproxy &> /dev/null; then
+    echo "HAProxy is not installed. Installing..."
+    sudo apt update
+    sudo apt install -y haproxy
+fi
+
+# Configure HAProxy
+sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+defaults
+  mode http
+  timeout client 15s
+  timeout connect 10s
+  timeout server 15s
+  timeout http-request 10s
+
+frontend clickviral-tech-frontend
+    bind *:80
+    default_backend clickviral-tech-backend
+
+backend clickviral-tech-backend
+    balance roundrobin
+    server 465679-web-01 100.25.190.21:80 check
+    server 465679-web-02 54.160.77.90:80 check
+EOF
+
+# Enable HAProxy to be started by init script
+echo "ENABLED=1" | sudo tee /etc/default/haproxy > /dev/null
+
+echo "Configured HAProxy with round-robin balancing between 465679-web-01 and 465679-web-02"
+
+# Restart HAProxy if it's running, start it if not
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+    sudo service haproxy start
+else
+    sudo service haproxy restart
+fi
