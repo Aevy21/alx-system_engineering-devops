@@ -35,7 +35,7 @@ defaults
     timeout server 15s
     timeout http-request 10s
 frontend algomerix-tech-frontend
-    bind *:80
+    bind *:8080
     default_backend algomerix-tech-backend
 
 backend algomerix-tech-backend
