@@ -1,0 +1,16 @@
+
+defaults
+    mode http
+    timeout client 15s
+    timeout connect 10s
+    timeout server 15s
+    timeout http-request 10s
+frontend algomerix-tech-frontend
+    bind *:80
+    default_backend algomerix-tech-backend
+
+backend algomerix-tech-backend
+    balance roundrobin
+    server web_server_01 54.165.47.248:80 check port 80
+    server web_server_02 100.25.193.107 check
+

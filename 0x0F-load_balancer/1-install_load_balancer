@@ -1,44 +1,58 @@
 #!/usr/bin/env bash
-# Check if NGINX is installed, install if not
-if ! command -v nginx &> /dev/null; then
-    echo "NGINX is not installed. Installing..."
-    sudo apt update
-    sudo apt install -y nginx
-fi
+# Script for deploying a load balancer
 
-# Install HAProxy if not installed
-if ! command -v haproxy &> /dev/null; then
-    echo "HAProxy is not installed. Installing..."
-    sudo apt update
-    sudo apt install -y haproxy
-fi
+echo -e "Performing system updates and basic checks...\n"
 
-# Configure HAProxy
-sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+function check_and_install() {
+    command -v "$1" &> /dev/null
+
+    # Ignore shellcheck error SC2181
+    # (check if return value is non-zero)
+    if [ $? -ne 0 ]; then
+        echo -e "Installing: $1\n"
+        sudo apt-get update -y -qq && \
+            sudo apt-get install -y "$1" -qq
+        echo -e "\n"
+    else
+        echo -e "${1} is already installed.\n"
+    fi
+}
+
+check_and_install haproxy # Install haproxy
+
+echo -e "\nSetting up configurations...\n"
+
+# Backup default configuration file
+sudo cp /etc/haproxy/haproxy.cfg haproxy_default.backup
+
+# Define load balancer configuration
+lb_config=\
+"
 defaults
-  mode http
-  timeout client 15s
-  timeout connect 10s
-  timeout server 15s
-  timeout http-request 10s
-
-frontend clickviral-tech-frontend
     mode http
+    timeout client 15s
+    timeout connect 10s
+    timeout server 15s
+    timeout http-request 10s
+frontend algomerix-tech-frontend
     bind *:80
-    default_backend clickviral-tech-backend
+    default_backend algomerix-tech-backend
 
-backend clickviral-tech-backend
+backend algomerix-tech-backend
     balance roundrobin
-    server 465679-web-01 100.25.190.21:80 check
-    server 465679-web-02 54.160.77.90:80 check
-EOF
+    server web_server_01 54.165.47.248:80 check port 80
+    server web_server_02 100.25.193.107 check
+"
 
-# Enable HAProxy to be started by init script
-echo "ENABLED=1" | sudo tee /etc/default/haproxy > /dev/null
+# Ignore shellcheck error SC2154 (unassigned variable)
+echo "$lb_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
 
-echo "Configured HAProxy with round-robin balancing between 465679-web-01 and 465679-web-02"
+# Enable haproxy to be started by init script
+echo "ENABLED=1" | sudo dd status=none of=/etc/default/haproxy
 
-# Restart HAProxy if it's running, start it if not
+echo "Configuration set - Round-robin load balancing between web_server_01 & web_server_02"
+
+# Start or restart haproxy service based on its status
 if [ "$(pgrep -c haproxy)" -le 0 ]; then
     sudo service haproxy start
 else
