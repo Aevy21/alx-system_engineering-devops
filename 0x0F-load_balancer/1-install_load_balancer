@@ -41,7 +41,7 @@ frontend algomerix-tech-frontend
 backend algomerix-tech-backend
     balance roundrobin
     server web_server_01 54.165.47.248:80 check port 80
-    server web_server_02 100.25.193.107 check
+    server web_server_02 100.25.193.107:80 check port 80
 "
 
 # Ignore shellcheck error SC2154 (unassigned variable)
