@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# script that configures a server to listen to port 80
+
+
+# Check if nginx processes are already running
+if pgrep nginx >/dev/null; then
+    echo "Nginx processes are running"
+else
+    echo "Nginx is not running. Starting Nginx..."
+    service nginx start
+fi
+
+# Check if port 80 is in use by nginx
+if netstat -tuln | grep ':80'; then
+    echo "Port 80 is already in use by Nginx"
+else
+    echo "Port 80 is available"
+fi
+
+# Remove the default Nginx configuration file from the enabled sites directory
+rm /etc/nginx/sites-enabled/default
+
+# Create a symbolic link to the default Nginx configuration file in the available sites directory
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Restart the Nginx service to apply the changes
+service nginx restart
