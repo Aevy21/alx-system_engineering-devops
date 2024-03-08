@@ -11,6 +11,10 @@ display_subdomain_info() {
 }
 
 # Main script
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
+fi
 domain="$1"
 subdomain="$2"
 
