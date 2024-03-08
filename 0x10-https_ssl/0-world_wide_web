@@ -1,29 +1,21 @@
 #!/usr/bin/env bash
 # This script retrieves DNS record information for specified or default subdomains.
 
-# Check for correct number of arguments
-if [[ "$#" -lt 1 || "$#" -gt 2 ]]; then
-    echo "Usage: $0 domain [subdomain]"
-    exit 1
-fi
+audit_subdomain() {
+    local domain=$1
+    local subdomain=$2
 
-# Domain name
-domain="$1"
-
-# Subdomains to audit
-subdomains=("www" "lb-01" "web-01" "web-02")
-
-# If subdomain is provided, use it; otherwise, use default subdomains
-if [[ -n "$2" ]]; then
-    subdomain="$2"
-    subdomains=("$subdomain")
-fi
-
-# Iterate over subdomains and display DNS record information
-for sub in "${subdomains[@]}"; do
-    result=$(dig +short "$sub.$domain" A |  awk -v subdomain="$sub" 'BEGIN{ORS=""} {printf "The subdomain %s is an A record and points to %s\n", subdomain, $0}')
-    if [[ -n "$result" ]]; then
-        echo "$result"
+    if [ -z "$subdomain" ]; then
+        subdomains=("www" "lb-01" "web-01" "web-02")
+    else
+        subdomains=("$subdomain")
     fi
-done
 
+    for sub in "${subdomains[@]}"; do
+        record=$(dig +short $sub.$domain)
+        record_type=$(dig +short $sub.$domain | awk '{print $4}')
+        echo "The subdomain $sub is a $record_type record and points to $record"
+    done
+}
+
+audit_subdomain "$1" "$2"
