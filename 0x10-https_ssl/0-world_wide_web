@@ -2,7 +2,7 @@
 # This script prints information about domains and subdomains.
 
 # Function to retrieve and print DNS information for a given domain and subdomain
-display_subdomain_info() {
+print_dns_info() {
     # Use 'dig' to query DNS information, then filter and format the output
     dig "$1" | grep -A1 'ANSWER SECTION:' | sed -r "s/$1./$2/g" | awk -F" " ' NR==2 { print "The subdomain " $1 " is a " $4 " record and points to " $5 }'
 }
@@ -10,13 +10,11 @@ display_subdomain_info() {
 # Check the number of command-line arguments
 if [ "$#" -eq 2 ]; then
     # If two arguments are provided, call the function with specified domain and subdomain
-    display_subdomain_info "$2.$1" "$2"
+    print_dns_info "$2.$1" "$2"
 else
-    # Define an array of predefined subdomains
-    subdomains=("www" "lb-01" "web-01" "web-02")
-    
-    # Iterate over the array and call the function for each subdomain
-    for subdomain in "${subdomains[@]}"; do
-        display_subdomain_info "$subdomain.$1" "$subdomain"
-    done
+    # If only one argument is provided, query predefined subdomains: 'www', 'lb-01', 'web-01', 'web-02'
+    print_dns_info "www.$1" "www"
+    print_dns_info "lb-01.$1" "lb-01"
+    print_dns_info "web-01.$1" "web-01"
+    print_dns_info "web-02.$1" "web-02"
 fi
