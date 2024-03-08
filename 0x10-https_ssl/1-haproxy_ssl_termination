@@ -35,7 +35,7 @@ defaults
 
 frontend http_front
     bind *:80
-    bind *:443 ssl crt /etc/haproxy/techlord.pem
+    bind *:443 ssl crt /etc/haproxy/
     mode http
     redirect scheme https if !{ ssl_fc }
     default_backend http_back
