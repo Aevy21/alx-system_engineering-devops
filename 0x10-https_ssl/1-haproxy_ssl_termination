@@ -1,4 +1,4 @@
-global
+:global
         log /dev/log    local0
         log /dev/log    local1 notice
         chroot /var/lib/haproxy
@@ -41,7 +41,7 @@ frontend aevycreations-frontend
         default_backend aevycreations-backend
 
 frontend aevycreations-frontend-https
-        bind *:443 ssl crt /etc/haproxy/certs/www.aevycreations.tech.pem
+        bind *:443 ssl crt /etc/haproxy/certs/aevycreations_tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend aevycreations-backend
 
