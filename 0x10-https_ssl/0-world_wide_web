@@ -21,7 +21,7 @@ fi
 
 # Iterate over subdomains and display DNS record information
 for sub in "${subdomains[@]}"; do
-    result=$(dig +short "$sub.$domain" A | awk -v sub="$sub" -v RS='\n' '{printf "%s %s %s\n", "The subdomain", sub, "is an A record and points to", $0}')
+    result=$(dig +short "$sub.$domain" A |  awk -v subdomain="$sub" 'BEGIN{ORS=""} {printf "The subdomain %s is an A record and points to %s\n", subdomain, $0}')
     if [[ -n "$result" ]]; then
         echo "$result"
     fi
