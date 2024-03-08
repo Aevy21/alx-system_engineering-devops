@@ -43,7 +43,7 @@ frontend aevycreations-frontend
 frontend aevycreations-frontend-https
         bind *:443 ssl crt /etc/haproxy/certs/www.aevycreations_tech.pem
         http-request set-header X-Forwarded-Proto https
-        default_backend algomerix-backend
+        default_backend aevycreations-backend
 
 backend aevycreations-backend
         balance roundrobin
