@@ -1,30 +1,22 @@
 #!/usr/bin/env bash
-# This script retrieves DNS record information for specified or default subdomains.
+# This script prints information about domains and subdomains.
 
-# Function to display information about subdomains
+# Function to retrieve and print DNS information for a given domain and subdomain
 display_subdomain_info() {
-    local domain="$1"
-    local subdomain="$2"
-    local record_type=$(dig +short -t A "$subdomain.$domain" | awk 'NR==1{print $4}')
-    local destination=$(dig +short "$subdomain.$domain" | awk 'NR==1{print $1}')
-    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+    # Use 'dig' to query DNS information, then filter and format the output
+    dig "$1" | grep -A1 'ANSWER SECTION:' | sed -r "s/$1./$2/g" | awk -F" " ' NR==2 { print "The subdomain " $1 " is a " $4 " record and points to " $5 }'
 }
 
-# Main script
-if [ "$#" -lt 1 ]; then
-    echo "Usage: $0 <domain> [subdomain]"
-    exit 1
-fi
-domain="$1"
-subdomain="$2"
-
-if [ -z "$subdomain" ]; then
-    # Display information for default subdomains
-    display_subdomain_info "$domain" "www"
-    display_subdomain_info "$domain" "lb-01"
-    display_subdomain_info "$domain" "web-01"
-    display_subdomain_info "$domain" "web-02"
+# Check the number of command-line arguments
+if [ "$#" -eq 2 ]; then
+    # If two arguments are provided, call the function with specified domain and subdomain
+    display_subdomain_info "$2.$1" "$2"
 else
-    # Display information for specified subdomain
-    display_subdomain_info "$domain" "$subdomain"
+    # Define an array of predefined subdomains
+    subdomains=("www" "lb-01" "web-01" "web-02")
+    
+    # Iterate over the array and call the function for each subdomain
+    for subdomain in "${subdomains[@]}"; do
+        display_subdomain_info "$subdomain.$1" "$subdomain"
+    done
 fi
