@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # Configure server to listen to port 80
-rm /etc/nginx/sites-enabled/default
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-service nginx stop
+sudo sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
+sudo service nginx restart
+sudo kill -9 "$(cat /var/run/nginx.pid)"
