@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Define the UFW configuration file path
+UFW_CONFIG_FILE="/etc/ufw/before.rules"
+
+# Check if UFW configuration file exists
+if [ ! -f "$UFW_CONFIG_FILE" ]; then
+    echo "UFW configuration file not found: $UFW_CONFIG_FILE"
+    exit 1
+fi
+
+# Add port redirection rules to the UFW configuration file using sed
+echo "Configuring port redirection in UFW..."
+
+sudo sed -i '/^\*nat/,$ {
+  /^\*nat/ a \
+  -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+}' "$UFW_CONFIG_FILE"
+
+# Allow SSH (port 22)
+sudo ufw allow 22/tcp
+
+# Reload UFW to apply the changes
+echo "Reloading UFW..."
+sudo ufw reload
+
+echo "Port redirection configured successfully."
+
