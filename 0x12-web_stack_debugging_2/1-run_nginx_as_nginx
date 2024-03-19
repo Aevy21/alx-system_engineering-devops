@@ -7,14 +7,12 @@ if ! command -v nginx &> /dev/null; then
     exit 1
 fi
 
-# Stop nginx service
-sudo service nginx stop
+# Fixes a web server to run Nginx as the nginx user listening on port 8080.
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
 
-# Modify nginx configuration to run as nginx user and listen on port 8080
-echo 'user nginx;' | sudo tee /etc/nginx/nginx.conf >/dev/null
-echo 'listen *:8080;' | sudo tee /etc/nginx/sites-available/default >/dev/null
+chmod 644 /etc/nginx/nginx.conf
 
-# Restart nginx service
-sudo service nginx start
+pkill apache2
 
-echo "Nginx configured to run as nginx user and listen on port 8080."
+sudo -u nginx service nginx start
