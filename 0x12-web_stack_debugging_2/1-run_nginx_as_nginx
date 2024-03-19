@@ -3,7 +3,8 @@
 # Install nginx if not already installed
 if ! command -v nginx &> /dev/null; then
     echo "Installing nginx..."
-    # Add your installation commands here
+    apt-get update
+    apt-get install nginx -y
     exit 1
 fi
 
@@ -12,7 +13,7 @@ sudo service nginx stop
 
 # Modify nginx configuration to run as nginx user and listen on port 8080
 echo 'user nginx;' | sudo tee /etc/nginx/nginx.conf >/dev/null
-echo 'listen 8080;' | sudo tee /etc/nginx/sites-available/default >/dev/null
+echo 'listen *:8080;' | sudo tee /etc/nginx/sites-available/default >/dev/null
 
 # Restart nginx service
 sudo service nginx start
