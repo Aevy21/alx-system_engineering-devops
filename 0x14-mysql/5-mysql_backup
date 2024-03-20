@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Check if the correct number of arguments are provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <mysql_root_password>"
+    exit 1
+fi
+
+# Variables
+PASSWORD=$1
+DATE=$(date +"%d-%m-%Y")
+DB_DUMP="backup.sql"
+ARCHIVE_NAME="$DATE.tar.gz"
+
+# Dump all MySQL databases
+mysqldump -u root -p$PASSWORD --all-databases > $DB_DUMP
+
+# Compress the dump file
+tar -czvf $ARCHIVE_NAME $DB_DUMP
+
+# Remove the dump file
+rm $DB_DUMP
+
+echo "MySQL dump and compression completed successfully!"
