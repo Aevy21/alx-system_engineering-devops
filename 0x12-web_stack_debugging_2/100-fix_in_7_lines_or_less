@@ -4,4 +4,4 @@ sudo useradd -s /usr/sbin/nologin -r nginx
 echo 'nginx ALL=(ALL:ALL) NOPASSWD:ALL' | sudo EDITOR='tee -a' visudo
 sed -i 's/^user .*/user nginx;/; s/^master_process .*/master_process on;/; s/^worker_processes .*/worker_processes auto;/; s/^pid .*/pid \/run\/nginx.pid;/' /etc/nginx/nginx.conf
 sudo chmod -R 755  /var/www/html && sudo chown -R nginx:nginx  /var/www/html
-sudo service nginx reload 
+sudo service nginx reload
