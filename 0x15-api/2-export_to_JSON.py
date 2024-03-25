@@ -43,11 +43,5 @@ if __name__ == "__main__":
         if task.get("completed"):
             completed_tasks_count += 1
 
-    print(f"Employee {employee_name} is done with tasks ({completed_tasks_count}/{len(all_tasks)}):")
-
-    for task in all_tasks:
-        if task.get("completed"):
-            print(f"\t{task.get('title')}")
-
     # Export tasks to JSON
     export_tasks_to_json(argv[1], all_tasks)
