@@ -8,13 +8,28 @@ Modules used:
 - requests: Sends HTTP requests to the API and handles responses.
 - sys.argv: Accesses command-line arguments to get the user ID from the command line.
 - csv: Works with CSV files for writing task data to a CSV file.
-
 """
 
 import json
 import requests
 from sys import argv
 import csv
+
+def export_tasks_to_csv(user_id, employee_name, tasks):
+    task_data = []
+    for task in tasks:
+        if task.get("completed"):
+            task_data.append([user_id, employee_name, "Completed", task.get('title')])
+        else:
+            task_data.append([user_id, employee_name, "Incomplete", task.get('title')])
+
+    csv_file_name = f"{user_id}.csv"
+    with open(csv_file_name, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+        writer.writerows(task_data)
+
+    print(f"CSV file '{csv_file_name}' created successfully.")
 
 if __name__ == "__main__":
     user_url = f"https://jsonplaceholder.typicode.com/users/{argv[1]}"
@@ -31,25 +46,5 @@ if __name__ == "__main__":
     response_tasks = requests.get(todos_url)
     all_tasks = response_tasks.json()
 
-    # Filter completed tasks
-    tasks_done = 0
-    # List to store task data
-    task_data = []
-    for task in all_tasks:
-        # Check if task is completed
-        if task.get("completed"):
-            tasks_done += 1
-            task_data.append(
-                [user_id, employee_name, "Completed", task.get('title')])
-        else:
-            task_data.append(
-                [user_id, employee_name, "Incomplete", task.get('title')])
-
-    # Export data to CSV
-        csv_file_name = f"{user_id}.csv"
-        with open(csv_file_name, mode='w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(
-                ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-            writer.writerows(task_data
-                             print(f"CSV file '{csv_file_name}' created successfully."))
+    # Export data to CSV using the function
+    export_tasks_to_csv(user_id, employee_name, all_tasks)
