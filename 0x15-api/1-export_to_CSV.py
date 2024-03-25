@@ -19,13 +19,13 @@ def export_tasks_to_csv(user_id, employee_name, tasks):
     task_data = []
     for task in tasks:
         if task.get("completed"):
-            task_data.append(["user_id", "employee_name", "True", "task.get('title')"])
+            task_data.append([user_id, employee_name, "True", task.get('title')])
         else:
-            task_data.append(["user_id", "employee_name", "False", "task.get('title')"])
+            task_data.append([user_id, employee_name, "False", task.get('title')])
 
     csv_file_name = f"{user_id}.csv"
     with open(csv_file_name, mode='w', newline='') as file:
-        writer = csv.writer(file)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         writer.writerows(task_data)
 
     print(f"CSV file '{csv_file_name}' created successfully.")
