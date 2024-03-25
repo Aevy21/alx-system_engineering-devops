@@ -6,7 +6,7 @@ and exports tasks data in CSV format
 Modules used:
 - json: Provides functions for working with JSON data.
 - requests: Sends HTTP requests to the API and handles responses.
-- sys.argv: Accesses command-line arguments to get the user ID from the command line.
+- sys.argv: Accesses command-line arguments to get the user ID.
 - csv: Works with CSV files for writing task data to a CSV file.
 """
 import csv
@@ -19,7 +19,8 @@ def export_tasks_to_csv(user_id, employee_name, tasks):
     task_data = []
     for task in tasks:
         if task.get("completed"):
-            task_data.append([user_id, employee_name, "True", task.get('title')])
+            task_data.append([user_id, employee_name, 
+                              "True", task.get('title')])
         else:
             task_data.append([user_id, employee_name, "False", task.get('title')])
 
@@ -29,6 +30,7 @@ def export_tasks_to_csv(user_id, employee_name, tasks):
         writer.writerows(task_data)
 
     print(f"CSV file '{csv_file_name}' created successfully.")
+
 
 if __name__ == "__main__":
     user_url = f"https://jsonplaceholder.typicode.com/users/{argv[1]}"
