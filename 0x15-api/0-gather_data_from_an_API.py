@@ -23,10 +23,15 @@ if __name__ == "__main__":
     all_tasks = response_tasks.json()
 
     # Filter completed tasks
-    tasks_done = [task for task in all_tasks if task.get("completed")]
+    tasks_done = 0
+    for task in all_tasks:
+        # Check if task is completed
+        if task.get("completed"):
+            tasks_done += 1
 
-    print(f"Employee {employee_name} is done with tasks({len(tasks_done)}/{len(all_tasks)}):")
+    print(f"Employee {employee_name} is done with tasks("
+              f"{tasks_done}/{len(all_tasks)}):")
 
-    for task in tasks_done:
-        print(f"\t{task.get('title')}")
-
+    for task in all_tasks:
+        if task.get("completed"):
+            print(f"\t{task.get('title')}")
