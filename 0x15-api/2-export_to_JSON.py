@@ -8,6 +8,7 @@ import json
 import requests
 from sys import argv
 
+
 def export_tasks_to_json(user_id, tasks):
     user_tasks = {
         user_id: [{
@@ -20,6 +21,7 @@ def export_tasks_to_json(user_id, tasks):
     file_name = f"{user_id}.json"
     with open(file_name, "w") as json_file:
         json.dump(user_tasks, json_file, indent=4)
+
 
 if __name__ == "__main__":
     todos_url = "https://jsonplaceholder.typicode.com/todos"
