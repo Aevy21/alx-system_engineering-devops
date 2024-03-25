@@ -26,7 +26,6 @@ def export_tasks_to_csv(user_id, employee_name, tasks):
     csv_file_name = f"{user_id}.csv"
     with open(csv_file_name, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         writer.writerows(task_data)
 
     print(f"CSV file '{csv_file_name}' created successfully.")
