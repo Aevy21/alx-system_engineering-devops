@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module fetches employer information from
-
 `jsonplaceholder` API using requests module
+and exports tasks data in CSV format
 """
 
 import json
