@@ -12,9 +12,10 @@ if __name__ == "__main__":
     # Fetch user details
     response_users = requests.get(user_url)
     user_details_python = response_users.json()
-    
+
     # Extract user IDs and names
-    user_id_name = [(str(user.get("id")), user.get("username")) for user in user_details_python]
+    user_id_name = [(str(user.get("id")),
+                     user.get("username")) for user in user_details_python]
 
     task_dict = {}
     for user in user_id_name:
@@ -22,10 +23,10 @@ if __name__ == "__main__":
         response_tasks = requests.get(todos_url_user)
         all_tasks = response_tasks.json()
 
-        tasks_list = [{"username": user[1],
+        tasks_list = {[{"username": user[1],
                        "task": task.get("title"),
                        "completed": task.get("completed")
-                       } for task in all_tasks]
+                       } for task in all_tasks]}
 
         task_dict.update({user[0]: tasks_list})
 
