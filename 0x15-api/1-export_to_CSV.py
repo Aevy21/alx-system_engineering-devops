@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # Fetch user details
     response_user = requests.get(user_url)
     user_details_python = response_user.json()
-    employee_name = user_details_python.get("name")
+    employee_name = user_details_python.get("username")
     user_id = argv[1]
 
     # Fetch all tasks for the user
