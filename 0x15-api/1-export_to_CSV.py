@@ -2,6 +2,13 @@
 """This module fetches employer information from
 `jsonplaceholder` API using requests module
 and exports tasks data in CSV format
+
+Modules used:
+- json: Provides functions for working with JSON data.
+- requests: Sends HTTP requests to the API and handles responses.
+- sys.argv: Accesses command-line arguments to get the user ID from the command line.
+- csv: Works with CSV files for writing task data to a CSV file.
+
 """
 
 import json
