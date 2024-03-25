@@ -9,8 +9,8 @@ import requests
 from sys import argv
 
 if __name__ == "__main__":
-    todos_url = "https://jsonplaceholder.typicode.com/todos"
     user_url = f"https://jsonplaceholder.typicode.com/users/{argv[1]}"
+    todos_url = "https://jsonplaceholder.typicode.com/todos"
 
     # Fetch user details
     response_user = requests.get(user_url)
