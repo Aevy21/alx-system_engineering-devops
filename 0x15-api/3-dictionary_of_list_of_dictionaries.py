@@ -33,5 +33,3 @@ if __name__ == "__main__":
         # Write data to JSON file
         with open("todo_all_employees.json", "w") as json_file:
             json.dump(task_dict, json_file, indent=4)
-
-            print("Data exported to todo_all_employees.json successfully.")
