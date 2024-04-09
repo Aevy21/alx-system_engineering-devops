@@ -13,22 +13,22 @@ def top_ten(subreddit):
 
     subreddit: (string) - the subreddit to be queried
     """
-
-    if subreddit is not None and type(subreddit) is str:
-        url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-        headers = {"User-Agent": "Aevy21 (by /u/Aevy21)"}
-        params = {"limit": 10}
-
-        reddit_resp = requests.get(url, params=params, headers=headers,
-                                   allow_redirects=False).json()
-
-        reddit_response_data = reddit_resp.get("data", {})
-
-        if reddit_response_data:
-            for data_entry in reddit_response_data:
-                if data_entry == "children":
-                    for entry in reddit_response_data[data_entry]:
-                        print(entry.get("data", {}).get("title", None))
-                    return
-
-    print(None)
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    params = {'limit': 10}
+    response = requests.get(url, headers=headers, params=params)
+    
+    if response.status_code != 200:
+        print(None)
+        return
+    
+    data = response.json().get('data', {})
+    children = data.get('children', [])
+    
+    if not children:
+        print(None)
+        return
+    
+    print("Top 10 hot posts in r/{}:".format(subreddit))
+    for child in children[:10]:
+        print(child.get('data', {}).get('title'))
