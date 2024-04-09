@@ -40,5 +40,5 @@ def number_of_subscribers(subreddit):
         return 0
 
 if __name__ == "__main__":
-    subreddit = "python"
+    subreddit = "programming"
     print(number_of_subscribers(subreddit))
