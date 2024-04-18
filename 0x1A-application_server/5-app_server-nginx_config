@@ -1,37 +1,39 @@
-Server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name 54.165.47.248;
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
 
-    location / {
-        proxy_pass http://127.0.0.1:5003;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    location /static/ {
-        alias /path/to/AirBnB_clone_v4/web_dynamic/static/;
-    }
-
-    location /airbnb-onepage/ {
-        proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
-    }
-
-    location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
-        proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
-    }
-
-    location /api {
-        proxy_pass http://127.0.0.1:5002/api;
-    }
-
-    # Error page for 404 errors
-    error_page 404 /404.html;
-    location /404 {
         root /var/www/html;
-        internal;
-    }
-}
 
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name 54.165.47.248;
+
+        add_header X-Served-By "465679-web-01";
+
+        error_page 404 /404.html;
+
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        location /airbnb-onepage/ {
+            proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
+        }
+
+        location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
+            proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+        }
+
+        location /api {
+            proxy_pass http://127.0.0.1:5002/api;
+        }
+		
+        location / {
+            proxy_pass http://127.0.0.1:5003/2-hbnb;
+        }
+		
+        location /static {
+            alias web_dynamic/static/;
+        }
+}
